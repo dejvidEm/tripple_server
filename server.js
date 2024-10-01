@@ -1,23 +1,25 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors()); // Povolenie CORS pre všetky požiadavky
-app.use(express.json()); // Parsovanie JSON telies
+// Povolenie CORS, aby frontend z inej domény mohol robiť požiadavky
+app.use(cors());
 
-// Základná cesta
-app.get('/', (req, res) => {
-  res.send('Ahoj! Toto je jednoduchý backend server.');
+// Middleware pre spracovanie JSON requestov
+app.use(express.json());
+
+// Jednoduchý API endpoint pre registráciu
+app.post('/api/register', (req, res) => {
+  const { fullName, email, password } = req.body;
+
+  // Tu môžeš pridať validáciu a prácu s databázou, napríklad ukladanie užívateľských dát
+  console.log('Received registration data:', { fullName, email, password });
+
+  // Odošleme úspešnú odpoveď
+  res.json({ message: 'User registered successfully', user: { fullName, email } });
 });
 
-// Príklad API endpoint
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Ahoj z backendu!' });
+// Server beží na porte 3000
+app.listen(3000, () => {
+  console.log('Server is running on http://195.28.146.105:3000');
 });
-
-// Spustenie servera
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server je spustený na http://localhost:${PORT}`);
-  });
