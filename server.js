@@ -30,5 +30,5 @@ app.post("/api/register", (req, res) => {
 
 // Spusti server
 app.listen(PORT, '0.0.0.0', () => { // '0.0.0.0' umožní prístup z vonku
-    console.log(`Server beží na porte ${PORT}!`);
+    console.log(`Server beží na porte ${PORT}! a funguje aj na domacom serveri!`);
 });
