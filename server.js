@@ -1,34 +1,23 @@
-const express = require("express");
-const cors = require("cors"); // Middleware pre CORS
+const express = require('express');
+const cors = require('cors');
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 3000;
 
-// Middleware na parsovanie JSON requestov
-app.use(express.json());
+// Middleware
+app.use(cors()); // Povolenie CORS pre všetky požiadavky
+app.use(express.json()); // Parsovanie JSON telies
 
-// Povoliť CORS len pre konkrétnu doménu (napr. doménu Vercel)
-app.use(cors({
-    origin: 'https://tripple-beryl.vercel.app', // nahraď skutočnou URL z Vercelu
-    methods: 'GET,POST,PUT,DELETE'
-}));
-
-// Jednoduchý GET endpoint
-app.get("/api/home", (req, res) => {
-    res.json({ message: "Hello world" });
+// Základná cesta
+app.get('/', (req, res) => {
+  res.send('Ahoj! Toto je jednoduchý backend server.');
 });
 
-// POST endpoint pre registráciu užívateľa
-app.post("/api/register", (req, res) => {
-    const { fullName, email, password } = req.body;
-
-    // Tu by si mal pridať logiku pre ukladanie užívateľa do databázy (MongoDB)
-    console.log('Received data:', { fullName, email, password });
-
-    // Odpoveď po úspešnom prijatí dát
-    res.json({ message: 'Registration successful' });
+// Príklad API endpoint
+app.get('/api/hello', (req, res) => {
+  res.json({ message: 'Ahoj z backendu!' });
 });
 
-// Spusti server
-app.listen(PORT, '0.0.0.0', () => { // '0.0.0.0' umožní prístup z vonku
-    console.log(`Server beží na porte ${PORT}! a funguje aj na domacom serveri!`);
+// Spustenie servera
+app.listen(PORT, () => {
+  console.log(`Server je spustený na http://localhost:${PORT} a bezi spravne!`);
 });
