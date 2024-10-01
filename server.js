@@ -18,6 +18,6 @@ app.get('/api/hello', (req, res) => {
 });
 
 // Spustenie servera
-app.listen(PORT, () => {
-  console.log(`Server je spustený na http://localhost:${PORT} a bezi spravne!`);
-});
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server je spustený na http://localhost:${PORT}`);
+  });
