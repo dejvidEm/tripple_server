@@ -20,6 +20,6 @@ app.post('/api/register', (req, res) => {
 });
 
 // Server beží na porte 3000
-app.listen(3000, () => {
-  console.log('Server is running on http://195.28.146.105:3000');
+app.listen(8080, () => {
+  console.log('Server is running on http://195.28.146.105:8080');
 });
