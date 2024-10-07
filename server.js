@@ -8,13 +8,16 @@ app.use(express.json());
 // Definovanie základnej cesty
 app.get('/', (req, res) => {
   console.log('Prijatá požiadavka na základnú cestu');
-  res.send('Hello from the Express server!');
+  res.send('Backend server fungujeeee!');
 });
 
 // Pridanie ďalšej cesty pre testovanie
-app.post('/api/test', (req, res) => {
-  console.log('Prijatá POST požiadavka:', req.body);
-  res.send('Data received');
+app.post('/auth/register', (req, res) => {
+
+  const data = req.body;
+
+  console.log('Dostal som tieto dáta: ', data);
+  res.send('Data received - dostal som všetky dáta potrebné na auth!');
 });
 
 // Spustenie servera
