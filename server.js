@@ -1,17 +1,23 @@
 const express = require('express');
-
 const app = express();
-const PORT = 4433; // HTTPS port, o SSL sa stará proxy
+const PORT = 3000;
 
-const cors = require('cors');
-app.use(cors());
+// Middleware pre parsing JSON
+app.use(express.json());
 
-// Testovacia trasa pre overenie
-app.get('/test', (req, res) => {
-  res.json({ message: 'Backend is working on port 4433!' });
+// Definovanie základnej cesty
+app.get('/', (req, res) => {
+  console.log('Prijatá požiadavka na základnú cestu');
+  res.send('Hello from the Express server!');
 });
 
-// Spustenie servera na porte 443
+// Pridanie ďalšej cesty pre testovanie
+app.post('/api/test', (req, res) => {
+  console.log('Prijatá POST požiadavka:', req.body);
+  res.send('Data received');
+});
+
+// Spustenie servera
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server beží na http://localhost:${PORT}`);
 });
