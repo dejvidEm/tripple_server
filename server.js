@@ -10,7 +10,7 @@ app.use(express.json());
 // Nahrávanie SSL certifikátu
 const options = {
   key: fs.readFileSync('/home/david/ssl/localhost.key'),
-  cert: fs.readFileSync('home/david/ssl/localhost.crt'),
+  cert: fs.readFileSync('/home/david/ssl/localhost.crt'),
 };
 
 // Definovanie základnej cesty
