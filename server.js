@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 app.post('/auth/register', (req, res) => {
   const data = req.body;
   console.log('Dostal som tieto dáta: ', data);
-  res.send('Data received - dostal som všetky dáta potrebné na auth!');
+  res.json({ message: 'Data received - dostal som všetky dáta potrebné na auth!' });
 });
 
 // Pridaj ďalšie cesty, ktoré potrebuješ
