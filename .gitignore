@@ -1,2 +1,0 @@
-# aby som ignoroval .env subor, je nahraty na backende len raz, MONGO_URI pre pripojenie do databazy sa menit nebude
-.env*local
