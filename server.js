@@ -2,6 +2,10 @@ const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const cors = require('cors');
+const mongoose = require('mongoose');
+const authRoutes = require('./routes/authRoutes');
+require('dotenv').config();
+
 const app = express();
 const PORT = 3000;
 
@@ -17,6 +21,9 @@ const options = {
 // Dovolené domény na requesty
 const allowedOrigins = ['https://tripple-beryl.vercel.app'];
 
+
+
+
 // Nastavenie CORS middleware pre všetky cesty
 app.use(cors({
   origin: allowedOrigins,
@@ -24,23 +31,32 @@ app.use(cors({
   credentials: true, // Ak chceš povoliť cookies a autentifikačné hlavičky
 }));
 
-// Definovanie základnej cesty
+
+
+
+// MongoDB pripojenie
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log('Connected to MongoDB Atlas'))
+  .catch((err) => console.error('Error connecting to MongoDB:', err));
+
+
+
+
+
+// Základná cesta
 app.get('/', (req, res) => {
   console.log('Prijatá požiadavka na základnú cestu');
-  res.send('Backend server fungujeeee!');
+  res.send('Backend server funguje!');
 });
 
-// Pridanie ďalších ciest pre testovanie
-app.post('/auth/register', (req, res) => {
-  const data = req.body;
-  console.log('Dostal som tieto dáta: ', data);
-  res.json({ message: 'Data received - dostal som všetky dáta potrebné na auth!' });
-});
+// Použitie autentifikačných ciest
+app.use('/auth', authRoutes);
 
-// Pridaj ďalšie cesty, ktoré potrebuješ
-app.get('/auth/login', (req, res) => {
-  res.send('Toto je prihlásenie.');
-});
+
+
 
 // Spustenie HTTPS servera
 https.createServer(options, app).listen(PORT, () => {
