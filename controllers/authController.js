@@ -1,5 +1,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const JWT_SECRET = "tripple_app_mikulas";
 
 exports.register = async (req, res) => {
   // dostanem udaje od klienta na server
@@ -24,7 +27,13 @@ exports.register = async (req, res) => {
 
     await newUser.save();
 
-    res.status(201).json({ message: 'User registered successfully' });
+    const token = jwt.sign(
+      { userId: newUser._id, email: newUser.email }, 
+      JWT_SECRET, 
+      { expiresIn: '1h' }
+    );
+
+    res.status(201).json({ message: 'User registered successfully', token});
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
