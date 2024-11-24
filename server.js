@@ -19,7 +19,7 @@ const options = {
 };
 
 // Dovolené domény na requesty
-const allowedOrigins = ['https://tripple-beryl.vercel.app'];
+const allowedOrigins = ['https://tripple-beryl.vercel.app', 'http://localhost:3000'];
 
 
 
